@@ -12,6 +12,7 @@
 class TransportPipe : public TransportBase {
 public:
 	TransportPipe(HANDLE pipe = INVALID_HANDLE_VALUE);
+	virtual ~TransportPipe();
 	//
 	virtual HANDLE accept();
 	virtual void listen(const std::string& name);
@@ -24,11 +25,9 @@ public:
 	virtual std::string recv();
 	//
 	virtual void process();
-	virtual NetState state();
 protected:
 	HANDLE mPipe;
 	HANDLE mThread;
-	NetState mState;
 	std::mutex mLock;
 	std::string mPipeName;
 	std::queue<HANDLE> mAcptQueue;

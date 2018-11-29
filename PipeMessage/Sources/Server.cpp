@@ -78,7 +78,7 @@ void Server::processLoop() {
 }
 
 void Server::addClient(HANDLE pipe) {
-	TransportPipe* pNew = new TransportPipe;
+	TransportBase* pNew = new TransportPipe;
 	pNew->assign(pipe);
 	mClients.insert(make_pair(pipe, pNew));
 }

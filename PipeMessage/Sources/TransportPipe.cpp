@@ -2,7 +2,11 @@
 
 using namespace std;
 
-TransportPipe::TransportPipe(HANDLE pipe) : mPipe(pipe), mState(NET_STATE_STOP), mThread(INVALID_HANDLE_VALUE) {}
+TransportPipe::TransportPipe(HANDLE pipe) : TransportBase(), mPipe(pipe), mThread(INVALID_HANDLE_VALUE) {}
+
+TransportPipe::~TransportPipe() {
+	close();
+}
 
 void TransportPipe::assign(HANDLE pipe) {
 	if (pipe != mPipe && pipe != INVALID_HANDLE_VALUE) {
@@ -23,10 +27,6 @@ void TransportPipe::close() {
 	mState = NET_STATE_STOP;
 	mPipe = INVALID_HANDLE_VALUE;
 	mThread = INVALID_HANDLE_VALUE;
-}
-
-NetState TransportPipe::state() {
-	return mState;
 }
 
 void TransportPipe::listen(const string& name) {
@@ -165,9 +165,9 @@ DWORD WINAPI TransportPipe::threadLoop(LPVOID pParam) {
 		// Handle new client
 		if (connected) {
 			printf("[Info] AcceptThread: New client connected.\n");
-			pTransport->mLock.lock();
+			lock_guard<mutex> autolock(pTransport->mLock);
 			pTransport->mAcptQueue.push(pipe);
-			pTransport->mLock.unlock();
+			pTransport->mState = NET_STATE_CONNECTING;
 		}
 		else {
 			printf("[Info] AcceptThread: Failed to connect new client.\n");

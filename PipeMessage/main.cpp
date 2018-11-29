@@ -10,7 +10,7 @@ using namespace std;
 int main() {
 	char x = 'o';
 	while (x != 's' && x != 'c') {
-		printf("Select start Client[c]/Server[s]: ");
+		printf("Select to start Client[c]/Server[s]: ");
 		x = getchar();
 	}
 	if (x == 's') {

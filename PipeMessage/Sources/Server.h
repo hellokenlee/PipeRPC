@@ -21,5 +21,5 @@ protected:
 	bool mIsStarted;
 	std::string mName;
 	TransportPipe mPipe;
-	std::map<HANDLE, TransportPipe*> mClients;
+	std::map<HANDLE, TransportBase*> mClients;
 };

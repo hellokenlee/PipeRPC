@@ -116,8 +116,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sources\TransportPipe.cpp" />
     <ClCompile Include="Sources\Server.cpp" />
+    <ClCompile Include="Sources\TransportPipe.cpp" />
+    <ClCompile Include="Sources\TransportTCP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\NetState.h" />

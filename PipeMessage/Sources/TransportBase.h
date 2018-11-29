@@ -6,6 +6,9 @@
 #include "NetState.h"
 
 class TransportBase {
+public:
+	TransportBase() : mState(NET_STATE_STOP) {};
+	virtual ~TransportBase() {};
 	//
 	virtual HANDLE accept() = 0;
 	virtual void listen(const std::string& name) = 0;
@@ -18,5 +21,7 @@ class TransportBase {
 	virtual std::string recv() = 0;
 	//
 	virtual void process() = 0;
-	virtual NetState state() = 0;
+	virtual inline NetState state() { return mState; };
+protected:
+	NetState mState;
 };
