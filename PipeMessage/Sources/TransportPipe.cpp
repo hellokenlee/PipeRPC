@@ -8,14 +8,6 @@ TransportPipe::~TransportPipe() {
 	close();
 }
 
-void TransportPipe::assign(HANDLE pipe) {
-	if (pipe != mPipe && pipe != INVALID_HANDLE_VALUE) {
-		close();
-		mPipe = pipe;
-		mState = NET_STATE_ESTABLISHED;
-	}
-}
-
 void TransportPipe::close() {
 	if (mPipe != INVALID_HANDLE_VALUE) {
 		CloseHandle(mPipe);
@@ -41,14 +33,18 @@ void TransportPipe::listen(const string& name) {
 		&id
 	);
 }
-HANDLE TransportPipe::accept() {
+shared_ptr<TransportBase> TransportPipe::accept() {
 	lock_guard<mutex> autolock(mLock);
 	if (mAcptQueue.empty()) {
-		return INVALID_HANDLE_VALUE;
+		return nullptr;
 	}
-	HANDLE ret = mAcptQueue.front();
+	// 
+	HANDLE client = mAcptQueue.front();
 	mAcptQueue.pop();
-	return ret;
+	//
+	TransportPipe* ret = new TransportPipe(client);
+	ret->mState = NET_STATE_ESTABLISHED;
+	return shared_ptr<TransportBase>(ret);
 }
 
 void TransportPipe::connect(const string& name) {

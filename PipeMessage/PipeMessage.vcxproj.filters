@@ -21,9 +21,6 @@
     <ClCompile Include="Sources\TransportPipe.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\TransportTCP.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Server.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -39,9 +36,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Sources\TransportBase.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\TransportTCP.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

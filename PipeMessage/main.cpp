@@ -1,5 +1,6 @@
 
 #include "Sources/Server.h"
+#include "Sources/TransportPipe.h"
 #include <iostream>
 
 using namespace std;

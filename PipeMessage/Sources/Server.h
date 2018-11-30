@@ -1,8 +1,9 @@
 #pragma once
 #include <Windows.h>
 #include <string>
-#include <map>
-#include "TransportPipe.h"
+#include <vector>
+
+#include "TransportBase.h"
 
 class Server {
 public:
@@ -15,11 +16,12 @@ public:
 	//
 	void processLoop();
 	//
-	void addClient(HANDLE pipe);
-	void delClient(HANDLE pipe);
+	int addClient(std::shared_ptr<TransportBase> client);
+	void delClient(unsigned int id);
 protected:
 	bool mIsStarted;
 	std::string mName;
-	TransportPipe mPipe;
-	std::map<HANDLE, TransportBase*> mClients;
+	TransportBase* mServer;
+	std::vector<std::shared_ptr<TransportBase>> mClients;
+	unsigned int generateClientID();
 };

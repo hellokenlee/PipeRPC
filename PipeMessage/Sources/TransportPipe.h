@@ -8,17 +8,15 @@
 
 #define PIPE_MAX_BUFFER_SIZE 1024
 
-//!TODO: 怎么处理在mAcptQueue队列中断掉的情况 
 class TransportPipe : public TransportBase {
 public:
 	TransportPipe(HANDLE pipe = INVALID_HANDLE_VALUE);
 	virtual ~TransportPipe();
 	//
-	virtual HANDLE accept();
+	virtual std::shared_ptr<TransportBase> accept();
 	virtual void listen(const std::string& name);
 	//
 	virtual void close();
-	virtual void assign(HANDLE handle);
 	virtual void connect(const std::string& name);
 	//
 	virtual void send(const std::string& msg);
